@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block scripts %}
+  <script src="{% static 'quizes/main.js' %}" defer></script>
+{% endblock scripts %}
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+<!-- Liên kết đến file CSS -->
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<!-- Thêm Google Fonts cho Quicksand -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
+
+<!-- Modal -->
+<div class="modal fade" id="quizStartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Vào làm bài</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modal-body-confirm">
+        <!-- Nội dung modal sẽ được điền bằng JavaScript -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chưa</button>
+        <button type="button" id="start-button" class="btn btn-success">Vào</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h1">THI THỬ TRUNG HỌC PHỔ THÔNG QUỐC GIA - MÔN LỊCH SỬ</div>
+<hr>
+<div class="quiz-list">
+  {% for obj in object_list %}
+    <div class="quiz-card">
+      <h3>{{ obj.name }}</h3>
+      <p>Số câu hỏi: {{ obj.number_of_questions }}</p>
+      <p>Độ khó: <span class="difficulty-{{ obj.difficulty|lower }}">{{ obj.difficulty }}</span></p>
+      <p>Thời gian: {{ obj.time }} phút</p>
+      <p>Điểm yêu cầu: {{ obj.required_score_to_pass }}%</p>
+      <button class="btn-start modal-button"
+              data-pk="{{ obj.pk }}"
+              data-quiz="{{ obj.name }}"
+              data-questions="{{ obj.number_of_questions }}"
+              data-difficulty="{{ obj.difficulty }}"
+              data-time="{{ obj.time }}"
+              data-pass="{{ obj.required_score_to_pass }}"
+              data-bs-toggle="modal"
+              data-bs-target="#quizStartModal">
+        Bắt đầu
+      </button>
+    </div>
+  {% endfor %}
+</div>
+{% endblock content %}
