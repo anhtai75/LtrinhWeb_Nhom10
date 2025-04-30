@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Lịch sử làm bài{% endblock %}
+{% block content %}
+<h2>Lịch sử làm bài</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Bài quiz</th>
+            <th>Điểm</th>
+            <th>Thời gian</th>
+            <th>Chi tiết</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.quiz_name }}</td>
+            <td>{{ result.score }}</td>
+            <td>{{ result.timestamp }}</td>
+            <td>
+                {% if result.id %}
+                <a href="{% url 'results:result_detail' result.id %}">Xem chi tiết</a>
+                {% else %}
+                Không có ID
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Chưa có bài nào</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

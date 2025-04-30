@@ -18,7 +18,7 @@ modalBtns.forEach(modalBtn => modalBtn.addEventListener('click', ()=>{
     <ul>
         <li>Độ Khó: <b>${difficulty}</b></li>
         <li>Số Câu Hỏi: <b>${numQuestions}</b></li>
-        <li>Điểm để qua: <b>${scoreToPass}</b>%</li>
+        <li>Điểm để qua: <b>${parseFloat(scoreToPass).toFixed(1)}</b>/10</li>
         <li>Thời Gian: <b>${time} phút</b></li>
     </ul>
     </div>

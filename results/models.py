@@ -11,3 +11,13 @@ class Result(models.Model):
     
     def __str__(self):
         return str(self.pk)
+
+class AnswerDetail(models.Model):
+    result = models.ForeignKey(Result, on_delete=models.CASCADE, related_name='answer_details')
+    question_text = models.CharField(max_length=1000)
+    user_answer = models.CharField(max_length=255)
+    correct_answer = models.CharField(max_length=255)
+
+    @property
+    def is_correct(self):
+        return self.user_answer == self.correct_answer

@@ -121,31 +121,29 @@ const sendData = () => {
         success: function(response) {
             quizForm.classList.add('not-visible')
 
-            scoreBox.innerHTML = `${response.passed ? 'Chúc mừng bạn!!! ' : 'Bạn trượt mất rồi :( '}Điểm của bạn là ${response.score.toFixed(2)}%`
+            scoreBox.innerHTML = `${response.passed ? 'Chúc mừng bạn!!! ' : 'Bạn trượt mất rồi :( '}Điểm của bạn là ${response.score.toFixed(1)}/10`
 
             response.results.forEach(res => {
                 const resDiv = document.createElement("div")
-                for (const [question, resp] of Object.entries(res)) {
-                    resDiv.innerHTML += question
-                    resDiv.classList.add('container', 'p-3', 'text-light', 'h6')
+                const qsuestion = res.question
+                const answer = res.answered
+                const correct = res.correct_answer
 
-                    if (resp == 'not answered') {
-                        resDiv.innerHTML += '-Chưa trả lời'
-                        resDiv.classList.add('bg-danger')
-                    } else {
-                        const answer = resp['answered']
-                        const correct = resp['correct_answer']
+                resDiv.classList.add('container', 'p-3', 'text-light', 'h6')
+                resDiv.innerHTML += `<b>${question}</b>`
 
-                        if (answer == correct) {
-                            resDiv.classList.add('bg-success')
-                            resDiv.innerHTML += ` | Đã Trả Lời: ${answer}`
-                        } else {
-                            resDiv.classList.add('bg-danger')
-                            resDiv.innerHTML += ` | Câu trả lời đúng: ${correct}`
-                            resDiv.innerHTML += ` | Đã Trả Lời: ${answer}`
-                        }
-                    }
+                if (answer === null) {
+                    resDiv.classList.add('bg-danger')
+                    resDiv.innerHTML += ' - Chưa trả lời'
+                } else if (answer === correct) {
+                    resDiv.classList.add('bg-success')
+                    resDiv.innerHTML += ` | Đã Trả Lời: ${answer}`
+                } else {
+                    resDiv.classList.add('bg-danger')
+                    resDiv.innerHTML += ` | Câu trả lời đúng: ${correct}`
+                    resDiv.innerHTML += ` | Đã Trả Lời: ${answer}`
                 }
+
                 resultBox.append(resDiv)
             })
         },

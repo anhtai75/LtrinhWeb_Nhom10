@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Chi tiết kết quả{% endblock %}
+{% block content %}
+<h2>Chi tiết bài làm: {{ result.quiz_name }}</h2>
+<p>Điểm: {{ result.score }}/10</p>
+<p>Thời gian làm bài: {{ result.timestamp }}</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Câu hỏi</th>
+            <th>Đáp án đã chọn</th>
+            <th>Đáp án đúng</th>
+            <th>Đúng/Sai</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for answer in result.answers %}
+        <tr>
+            <td>{{ answer.question_text }}</td>
+            <td>
+                {% if answer.user_answer %}
+                    {{ answer.user_answer }}
+                {% else %}
+                    <i style="color:gray">Chưa chọn</i>
+                {% endif %}
+            </td>
+            <td>
+                {% if answer.correct_answer %}
+                    {{ answer.correct_answer }}
+                {% else %}
+                    <i style="color:gray">Không rõ</i>
+                {% endif %}
+            </td>
+            <td>
+                {% if answer.user_answer %}
+                    {% if answer.user_answer == answer.correct_answer %}
+                        <span style="color: green;">Đúng</span>
+                    {% else %}
+                        <span style="color: red;">Sai</span>
+                    {% endif %}
+                {% else %}
+                    <span style="color: red;">Sai</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

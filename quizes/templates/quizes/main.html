@@ -41,7 +41,7 @@ Home
       <p>Số câu hỏi: {{ obj.number_of_questions }}</p>
       <p>Độ khó: <span class="difficulty-{{ obj.difficulty|lower }}">{{ obj.difficulty }}</span></p>
       <p>Thời gian: {{ obj.time }} phút</p>
-      <p>Điểm yêu cầu: {{ obj.required_score_to_pass }}%</p>
+      <p>Điểm yêu cầu: {{ obj.required_score_to_pass|floatformat:1 }}/10</p>
       <button class="btn-start modal-button"
               data-pk="{{ obj.pk }}"
               data-quiz="{{ obj.name }}"

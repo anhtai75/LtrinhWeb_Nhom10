@@ -15,7 +15,7 @@
 <div class="row">
   <div class="col d-flex flex-column">
     <b>{{obj.name}}</b>
-    <p>Điểm cần để qua: {{obj.required_score_to_pass}}%</p>
+    <p>Điểm cần để qua: {{ obj.required_score_to_pass|floatformat:1 }}/10</p>
   </div>
   <div class="col d-flex justify-content-end text-end" id="timer-box"></div>
 
